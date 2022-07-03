@@ -1,12 +1,7 @@
 package pl.sda.arppl4.hibernateschool.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -25,6 +20,18 @@ public class Mark {
     private LocalDateTime dateOfMarkReceived;
     private LocalDateTime dateOfMarkCorrected;
     private Double markValue;
+    @Enumerated(EnumType.STRING)
     private Subject subject;
 
+    @ManyToOne
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Student student;
+
+    public Mark(LocalDateTime dateOfMarkReceived, Double markValue, Subject subject, Student student) {
+        this.dateOfMarkReceived = dateOfMarkReceived;
+        this.markValue = markValue;
+        this.subject = subject;
+        this.student = student;
+    }
 }

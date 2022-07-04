@@ -9,6 +9,7 @@ import pl.sda.arppl4.hibernateschool.util.HibernateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class GenericDao <T> {
 
@@ -28,7 +29,7 @@ public class GenericDao <T> {
             }
         }
     }
-    public void removeStudent(T removedObject) {
+    public void deleteStudent(T removedObject) {
         SessionFactory fabrykaPolaczen = HibernateUtil.getSessionFactory();
         try (Session session = fabrykaPolaczen.openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -68,6 +69,15 @@ public class GenericDao <T> {
         }
 
         return list;
+    }
+
+    public Optional<T> getOneStudent(Long id, Class<T> classType) {
+        SessionFactory fabrykaPolaczen = HibernateUtil.getSessionFactory();
+        try (Session session = fabrykaPolaczen.openSession()) {
+            T foundObject = session.get(classType, id);
+
+            return Optional.ofNullable(foundObject);
+        }
     }
 
 

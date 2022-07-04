@@ -56,7 +56,7 @@ public class StudentCommandLineParser {
         if (studentOptional.isPresent()) {
             Student studentToDelete = studentOptional.get();
             Set<Mark> setOfMarks = studentOptional.get().getMarks();
-            if (setOfMarks.isEmpty()) {
+            if (!setOfMarks.isEmpty()) {
                 System.out.println("Student cannot be deleted");
             } else
                 studentDao.deleteStudent(studentToDelete);
